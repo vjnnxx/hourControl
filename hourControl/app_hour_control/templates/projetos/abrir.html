@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Projeto {{projeto.id_projeto}}</title>
+</head>
+<body>
+    
+    <h1>Projeto {{ projeto.id_projeto}}</h1>
+
+
+    <h2>Data: <span id="data-atual"></span> </h2>
+
+    <h2>Hora: <span id="hora-span"></span></h2>
+
+    <form action="">
+        <input type="hidden" name="data" id="data">
+        <input type="hidden" name="hora" id="hora">
+        <input type="submit" value="Começar">
+    </form>
+</body>
+
+<script>
+    //Adiciona a data atual automaticamente
+    dataAtual = new Date()
+
+    dataString = dataAtual.toISOString().substring(0,10);
+    document.querySelector('#data-atual').innerHTML = dataString;
+
+    document.querySelector('#data').value = dataString;
+
+
+    //Relogio
+
+    function currentTime() {
+        let date = new Date(); 
+        let hh = date.getHours();
+        let mm = date.getMinutes();
+        let ss = date.getSeconds();
+        let session = "AM";
+
+        if(hh == 0){
+            hh = 12;
+        }
+        if(hh > 12){
+            hh = hh - 12;
+            session = "PM";
+        }
+
+        hh = (hh < 10) ? "0" + hh : hh;
+        mm = (mm < 10) ? "0" + mm : mm;
+        ss = (ss < 10) ? "0" + ss : ss;
+            
+        let time = hh + ":" + mm + ":" + ss + " " + session;
+
+        document.querySelector('#hora-span').innerText = time; 
+        document.querySelector('#hora').value = time;
+        let t = setTimeout(function(){ currentTime() }, 500);
+    }
+    
+  currentTime();
+    
+    
+    
+</script>
+</html>
+
+

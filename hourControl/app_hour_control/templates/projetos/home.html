@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pt-br">
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,8 +8,33 @@
   <body>
     <h1>Projetos</h1>
 
+    <table>
+      <tr>
+        <th> ID </th>
+        <th> Nome </th>
+        <th> Ver Mais</th>
+      </tr>
+
+      {% for projeto in projetos %}
+        <tr>
+          <td> {{ projeto.id_projeto }}</td>
+          <td> {{ projeto.nome }}</td>
+          <td> 
+            
+            <form action="{% url 'abrir' %}" method="get">
+              <input type="hidden" name='id_projeto' value="{{projeto.id_projeto}}">
+              <input type="submit" name="ainda" value="Abrir">
+            </form>
+          
+          </td>
+        </tr>
+      {% endfor %}
+    </table>
+
     <h2>Adicionar novo projeto</h2>
-    <form action="{% url 'cadastrar'%}" method="get">
+    <form action="{% url 'cadastrar'%}" method="post"> 
+
+      {% csrf_token %}
       <label for="nome-projeto">Nome</label>
       <input type="text" name="nome-projeto" id="nome-projeto">
 
@@ -18,5 +43,10 @@
 
       <input type="submit" value="Criar">
     </form>
+
+
+    <hr>
+
+    <h2>Pendentes</h2>
   </body>
 </html>
